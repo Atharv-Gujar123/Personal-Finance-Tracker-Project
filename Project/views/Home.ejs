@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Transactions</h1>
+    <h2>Total Income: <%= income%></h2>
+    <h2>Total Expense: <%= expense%></h2>
+    <h2>Balance: <%= income - expense%></h2>
+    <form>
+        <select name="filter">
+            <option value="" <%= !selectFilter ? "selected" : ""%>>All</option>
+            <option value="Type-Income" >Show Only Income</option>
+            <option value="Type-Expense" <%= selectFilter == "Type-expense" ? "selected" : ""%>>Show Only Expense</option>
+            <option value="Category-Household" <%= selectFilter == "Category-Household" ? "selected" : ""%>>Show Only HouseHold</option>
+            <option value="Category-Earning" <%= selectFilter == "Category-Earning" ? "selected" : ""%>>Show Only Earnings</option>
+            <option value="Category-Fees" <%= selectFilter == "Category-Fees" ? "selected" : ""%>>Show Only Fees</option>
+        </select>
+        <button>filter</button>
+    </form>
+    <form>
+        <select name="sort">
+        <option value="Date.1"<%= !selectSort ? "selected" : ""%>>Default</option>
+        <option value="Date.-1" <%= selectSort == "Date.-1" ? "selected" : ""%>>Date Decreasing</option>
+        <option value="Amount.1"<%= selectSort == "Amount.1" ? "selected" : ""%>>Amount Increasing</option>
+        <option value="Amount.-1"<%= selectSort == "Amount.-1" ? "selected" : ""%>>Amount Decreasing</option>
+        </select>
+        <button>Sort</button>
+    </form>
+    <button><a href = "/add">New</a></button>
+    <br><br>
+    <% let i = 0 %>
+    <% data.map((item) => {%>
+        <h3>Type: <%=item.Type%></h3>
+        <h3>Amount: <%=item.Amount%></h3>
+        <h3>Category: <%=item.Category%></h3>
+        <h3>Date: <%=date[i]%></h3>
+        <% i = i + 1%>
+        <button><a href = "/delete/<%= item._id%>">Delete</a></button>
+        <button><a href = "/update/<%= item._id%>">Update</a></button>
+    <%})%>
+</body>
+</html>

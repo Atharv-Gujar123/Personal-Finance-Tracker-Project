@@ -1,0 +1,137 @@
+.heading {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #e5e7eb;
+    margin-bottom: 24px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background-color: #1e293b;
+    padding: 16px 20px;
+    border-radius: 8px;
+    flex: 1 1 250px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.label {
+    display: block;
+    font-size: 14px;
+    color: #94a3b8;
+    margin-bottom: 6px;
+}
+
+.value {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+#income {
+    color: #22c55e;
+}
+
+#expense {
+    color: #ef4444;
+}
+
+.superContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.BarContainer,
+.PieContainer {
+    flex: 1 1 400px;
+    min-width: 0;
+    min-height: 0;
+    background-color: #1e293b;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.superContainer h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #e5e7eb;
+    margin-bottom: 16px;
+}
+
+.month-input {
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    color: #e5e7eb;
+    font-weight: 500;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.month-input:focus {
+    outline: none;
+    border-color: #22c55e;
+}
+
+.BarScrollWrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.BarInner {
+    min-width: 800px;
+    /* increase based on number of months */
+}
+
+.pagination {
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagination button {
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    color: #e5e7eb;
+    font-weight: 500;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.pagination button:disabled {
+    background-color: #334155;
+    cursor: not-allowed;
+}
+.pagination span {
+    color: #e5e7eb;
+    font-weight: 500;
+}
+@media (max-width: 600px) {
+    .heading {
+        font-size: 1.5rem;
+    }
+
+    .dashboard-cards {
+        flex-direction: row;
+    }
+
+    .superContainer {
+        flex-direction: column;
+        /* ✅ stack vertically */
+    }
+
+    .BarContainer,
+    .PieContainer {
+        flex: 1 1 100%;
+        padding: 15px;
+    }
+}

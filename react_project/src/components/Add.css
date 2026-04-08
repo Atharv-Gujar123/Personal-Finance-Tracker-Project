@@ -1,0 +1,76 @@
+input[type="number"]::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+.form-container{
+    display: flex;
+    flex-direction: column;
+    padding: 4vh 2vw;
+    border-radius: 12px;
+    background-color: #1e293b;
+    margin: 10vh 20vw;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+.form-container h2{
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+.input-group{
+    margin: 1vh 0;
+    display: flex;
+    flex-direction: column;
+    gap:1vh;
+}
+.inputs{
+    background-color: #0f172a;
+    padding: 1%;
+    margin-bottom: 18px;
+    border: solid;
+    border-radius: 12px;
+    font-weight: 600;
+    color: #E5E7EB;
+}
+.inputs option{
+    background-color: #1E293B;
+    color: #E5E7EB;
+}
+.inputs:focus, .inputs select:focus{
+    border-color: #22C55E;
+    outline: none;
+} 
+label{
+    font-size: 14px;
+    color: #9CA3AF;
+    margin-bottom: 6px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+}
+label{
+    font-size: 18px;
+    font-weight: 600;
+}
+.form-container button{
+    background-color: #22C55E;
+    color: white;
+    font-weight: 600;
+    padding: 1%;
+    border: none;
+    border-radius: 12px;
+    width: 100%;
+}
+.form-container button:hover{
+    background-color: #16A34A;
+}
+@media screen and (width < 600px){
+    .form-container{
+        margin: 5vh 5vw;
+    }
+    .inputs{
+        padding: 2% 5%;
+    }
+    .form-container button{
+        padding: 1vh 0;
+    }
+}

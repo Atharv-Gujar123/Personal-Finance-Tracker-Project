@@ -1,0 +1,28 @@
+.filter{
+    width: 11vw;
+    height: 6vh;
+    padding: 0 12px;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #e5e7eb;
+    margin: 1%;
+}
+.filter:focus{
+    outline: none;
+    border-color: #22c55e;
+    background-color: #1e293b;
+}
+.filter option{
+    background-color: #1e293b;
+    font-size: 13px;
+    font-weight: 450;
+    color: #e5e7eb;
+}
+.filter option:hover{
+    background-color: yellow;
+    color: #22c55e;
+}

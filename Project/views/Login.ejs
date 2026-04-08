@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <form action="/edit" method="post">
+        <input type="hidden" name = "id" value="<%= data._id%>" >
+        <select name="type" required>
+            <option value="income"
+            <%= data.Type == "income" ? "selected" : ""%>
+            >Income</option>
+            <option value="expense" 
+            <%= data.Type == "expense" ? "selected" : ""%>
+            >Expense</option>
+        </select>
+        <br>
+        <br>
+        <input type = "number" name = "Amount" placeholder="Amount" value = "<%= data.Amount%>">
+        <br>
+        <br>
+        <input type="text" name="category" placeholder="category" value = "<%= data.Category%>">
+        <br><br>
+        <input type="date" name="date" placeholder="date" value = "<%= date%>">
+        <button>Add</button>
+    </form>
+</body>
+</html>
