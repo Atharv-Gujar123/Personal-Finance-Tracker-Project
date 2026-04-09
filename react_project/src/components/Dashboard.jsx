@@ -49,10 +49,9 @@ export const Dashboard = () => {
 
   const first = data[0].monthKey;  
   const last = data[data.length - 1].monthKey; 
-
-  const startYear = first.slice(2, 4); 
-  const endYear = last.slice(2, 4);    
-
+  const startYear = first.slice(0, 4); 
+  const endYear = last.slice(0, 4);    
+ 
   return startYear === endYear 
     ? `${startYear}` 
     : `${startYear}-${endYear}`;
@@ -104,7 +103,7 @@ A
               Prev
             </button>
             <span>
-              20{getYearRange(currentData) || "No Data"}
+              {getYearRange(currentData) || "No Data"}
             </span>
             <button
               onClick={() =>
