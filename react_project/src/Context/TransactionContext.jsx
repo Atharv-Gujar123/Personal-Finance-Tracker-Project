@@ -7,7 +7,7 @@ export const TransactionProvider = ({ children }) => {
   useEffect(() => {
     console.log()
     axios
-      .get("http://localhost:5000/")
+      .get("http://localhost:5000/dashboard")
       .then((res) => {
         setTransactions(res.data.result);
       })

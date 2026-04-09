@@ -14,7 +14,7 @@ export const dbConnection = async() => {
     const db = client.db("Data")
     return db
 }
-app.get("",home)
+app.get("/dashboard",home)
 app.get("/add",add)
 app.delete("/delete/:id",Delete)
 app.get("/update/:id",update)
