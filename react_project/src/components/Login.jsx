@@ -1,7 +1,26 @@
+import './login.css'
 export const Login = () => {
     return (
         <>
-        <h1>Login</h1>
+        <div className="login-page">
+            <div className="login-card">
+                <h2 className="login-title">Welcome Back!</h2>
+                <p className="login-subtitle">Login to your account</p>
+                <form className="login-for">
+                    <div className="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="Enter email" />
+                    </div>
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Enter password" />
+                    </div>
+                    <button type="submit" className="login-btn">Login</button>
+                </form>
+                <p className="extra-text">Forget password</p>
+                    <p className="extra-text">Don't have an account?Sign up.</p>
+            </div>
+        </div>
         </>
     )
 }
