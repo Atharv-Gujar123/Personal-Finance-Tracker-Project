@@ -2,6 +2,7 @@ import exp from 'express'
 import { add, Delete, Edit, home, submit, update } from './controller/Control.js'
 import { MongoClient } from 'mongodb'
 import cors from 'cors'
+import jwt from 'jsonwebtoken'
 const url = "mongodb://localhost:27017"
 const client = new MongoClient(url)
 const app = exp()
@@ -9,6 +10,19 @@ app.set('view engine','ejs')
 app.use(exp.json())
 app.use(cors())
 app.use(exp.urlencoded({extended:true}))
+const auth = (req,res,next) => {
+    const header = req.headers.authorization;
+    if(!header){
+        return res.status(401).json({message:"Unauthorized"})
+    }
+    const token = header.split(" ")[1]
+    try{
+        const decoded = jwt.verify(token,"secret")
+        req.user = decoded
+        next()
+    }catch(err){
+        return res.status(401).json({message:"Unauthorized"})
+}}
 export const dbConnection = async() => {
     await client.connect()
     const db = client.db("Data")

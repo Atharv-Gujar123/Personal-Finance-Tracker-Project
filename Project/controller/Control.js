@@ -1,12 +1,17 @@
 import {
   addUsers,
+  createUser,
   DeleteById,
+  findByEmail,
   getById,
   getUsers,
   Total,
   updateById,
+  createUser,
+  findByEmail
 } from "../model/Models.js";
-
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 export const home = async (req, res) => {
   let query = {};
   let sort = { Date: 1 };
@@ -99,3 +104,50 @@ export const Edit = async (req, res) => {
     });
   }
 };
+const register = async(req,res) => {
+  const {email, password} = req.body
+  try{
+    const existing = await findByEmail(email)
+    if(existing){
+      return res.json({
+        message:"User already exists"
+      })
+    }
+    const hashed = await bcrypt.hash(password,10)
+    const result = await createUser({email,password:hashed})
+    return res.status(201).json({
+      message:"User registered"
+    })
+  } catch(err){
+    return res.status(500).json({
+      message:err
+    })
+  }
+}
+const login = async(req,res) => {
+  const {email, password} = req.body
+  try{
+    const user = await dbConnection.collection("users").findOne({email})
+    if(!user){
+      return res.status(400).json({
+        message:"Invalid credentials"
+      })
+    }
+    const match = await bcrypt.compare(password,user.password)
+    if(!match){
+      return res.status(400).json({
+        message:"Invalid password"
+      })
+    }
+    const token = jwt.sign(
+      {id: user_id},
+      "SECRET_KEY",
+      {expiresIn:"1d"}
+    )
+      res.json({token})
+  } catch(err){
+    return res.status(500).json({
+      message:err
+    })
+  }
+}

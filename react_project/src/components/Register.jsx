@@ -9,11 +9,11 @@ export const Register = () => {
           <form className="login-form">
             <div className="form-group">
               <label>Email</label>
-              <input type="email" placeholder="Enter email" />
+              <input type="email" name="email" placeholder="Enter email" />
             </div>
             <div className="form-group">
               <label>Password</label>
-              <input type="password" placeholder="Set password" />
+              <input type="password" name="password" placeholder="Set password" />
             </div>
             <button className="login-btn">Submit</button>
           </form>

@@ -1,6 +1,6 @@
 import { Card } from './components/Card.jsx'
 import { Navbar } from './components/Navbar.jsx'
-import { Routes,Route } from 'react-router-dom'
+import { Routes,Route, Outlet } from 'react-router-dom'
 import './App.css'
 import { Dashboard } from './components/Dashboard.jsx'
 import { Add } from './components/Add.jsx'
@@ -8,18 +8,38 @@ import { Update } from './components/Update.jsx'
 import { TransactionProvider } from './Context/TransactionContext.jsx'
 import { Login } from './components/Login.jsx'
 import { Register } from './components/Register.jsx'
+const AppLayout = () => {
+  return(
+    <>
+    <Navbar/>
+    <Outlet/>
+    </>
+  )
+}
+const AuthLayout = () => {
+  return(
+    <>
+    <Outlet/>
+    </>
+  )
+}
+
 function App() {
   return (
     <>
     <TransactionProvider>
-    <Navbar/>
     <Routes>
+      <Route element = {<AuthLayout/>}>
       <Route path = "/register" element = {<Register/>}/>
+        <Route path = "/" element = {<Login/>}/>
+ </Route>
+      <Route element = {<AppLayout/>}>
       <Route path = "/dashboard" element = {<Dashboard/>}/>
-      <Route path = "/" element = {<Login/>}/>
       <Route path = "/add" element = {<Add/>}/>
       <Route path = "/Transactions" element = {<Card/>}/>
       <Route path="/Update/:id" element = {<Update/>}/>
+      </Route>
+      
     </Routes>
     </TransactionProvider>
     </>

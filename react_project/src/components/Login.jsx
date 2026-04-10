@@ -10,11 +10,11 @@ export const Login = () => {
                 <form className="login-for">
                     <div className="form-group">
                         <label>Email</label>
-                        <input type="email" placeholder="Enter email" />
+                        <input type="email" name='email' placeholder="Enter email" />
                     </div>
                     <div className="form-group">
                         <label>Password</label>
-                        <input type="password" placeholder="Enter password" />
+                        <input type="password" name='password' placeholder="Enter password" />
                     </div>
                     <button type="submit" className="login-btn">Login</button>
                 </form>

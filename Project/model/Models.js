@@ -1,6 +1,5 @@
 import { ObjectId } from "mongodb";
 import { dbConnection } from "../index.js";
-
 export const getUsers = async(query,sort) => {
     const db = await dbConnection()
     const result = await db.collection('transactions').find(query).sort(sort).toArray()
@@ -33,4 +32,10 @@ export const Total = async() => {
     const db = await dbConnection()
     const result = db.collection('transactions').aggregate([{$group:{ _id : "$Type", total : {$sum :"$Amount"}}}]).toArray()
     return result
+}
+export const findByEmail = async(email) => {
+    return await dbConnection.collection('users').findOne({email})
+}
+export const createUser = async(user) => {
+    return await dbConnection.collection('users').insertOne(user)
 }
