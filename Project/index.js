@@ -23,17 +23,20 @@ const auth = (req,res,next) => {
     }catch(err){
         return res.status(401).json({message:"Unauthorized"})
 }}
+
 export const dbConnection = async() => {
     await client.connect()
     const db = client.db("Data")
     return db
 }
-app.get("/dashboard",home)
-app.get("/add",add)
-app.delete("/delete/:id",Delete)
-app.get("/update/:id",update)
-app.post("/submit",submit)
-app.put("/edit",Edit)
+app.post("/register", register)
+app.post("/login", login)
+app.get("/dashboard",auth,home)
+app.get("/add",auth,add)
+app.delete("/delete/:id",auth,Delete)
+app.get("/update/:id",auth,update)
+app.post("/submit",auth,submit)
+app.put("/edit",auth,Edit)
 app.listen(5000,() => {
     console.log(`Server running`)
 })

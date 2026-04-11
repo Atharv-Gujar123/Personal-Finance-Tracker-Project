@@ -7,8 +7,6 @@ import {
   getUsers,
   Total,
   updateById,
-  createUser,
-  findByEmail
 } from "../model/Models.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -104,7 +102,7 @@ export const Edit = async (req, res) => {
     });
   }
 };
-const register = async(req,res) => {
+export const register = async(req,res) => {
   const {email, password} = req.body
   try{
     const existing = await findByEmail(email)
@@ -124,10 +122,10 @@ const register = async(req,res) => {
     })
   }
 }
-const login = async(req,res) => {
+export const login = async(req,res) => {
   const {email, password} = req.body
   try{
-    const user = await dbConnection.collection("users").findOne({email})
+    const user = await findByEmail(email)
     if(!user){
       return res.status(400).json({
         message:"Invalid credentials"
@@ -140,7 +138,7 @@ const login = async(req,res) => {
       })
     }
     const token = jwt.sign(
-      {id: user_id},
+      {id: user._id},
       "SECRET_KEY",
       {expiresIn:"1d"}
     )

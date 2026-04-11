@@ -1,8 +1,8 @@
 import { ObjectId } from "mongodb";
 import { dbConnection } from "../index.js";
-export const getUsers = async(query,sort) => {
+export const getUsers = async(query,sort,userId) => {
     const db = await dbConnection()
-    const result = await db.collection('transactions').find(query).sort(sort).toArray()
+    const result = await db.collection('transactions').find({userId: new ObjectId(userId),...query}).sort(sort).toArray()
     return result
 }
 
@@ -34,8 +34,8 @@ export const Total = async() => {
     return result
 }
 export const findByEmail = async(email) => {
-    return await dbConnection.collection('users').findOne({email})
+    return await db.collection('users').findOne({email})
 }
 export const createUser = async(user) => {
-    return await dbConnection.collection('users').insertOne(user)
+    return await db.collection('users').insertOne(user)
 }
