@@ -1,19 +1,65 @@
-import './login.css'
+import "./login.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export const Register = () => {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (res.status === 201) {
+        alert("Registration successful");
+        navigate("/"); 
+      } else {
+        console.log(data)
+        alert(data.message);
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Server error");
+    }
+  };
   return (
     <>
       <div className="login-page">
         <div className="login-card">
           <h2 className="login-title">Create Account</h2>
           <p className="login-subtitle">Sign up to get started</p>
-          <form className="login-form">
+          <form className="login-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Email</label>
-              <input type="email" name="email" placeholder="Enter email" />
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter email"
+                onChange={handleChange}
+              />
             </div>
             <div className="form-group">
               <label>Password</label>
-              <input type="password" name="password" placeholder="Set password" />
+              <input
+                type="password"
+                name="password"
+                placeholder="Set password"
+                onChange={handleChange}
+              />
             </div>
             <button className="login-btn">Submit</button>
           </form>

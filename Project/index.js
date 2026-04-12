@@ -1,5 +1,5 @@
 import exp from 'express'
-import { add, Delete, Edit, home, submit, update } from './controller/Control.js'
+import { add, Delete, Edit, home, submit, update,register,login } from './controller/Control.js'
 import { MongoClient } from 'mongodb'
 import cors from 'cors'
 import jwt from 'jsonwebtoken'
@@ -13,14 +13,17 @@ app.use(exp.urlencoded({extended:true}))
 const auth = (req,res,next) => {
     const header = req.headers.authorization;
     if(!header){
+        console.log(header)
+        console.log('unauthorized')
         return res.status(401).json({message:"Unauthorized"})
     }
     const token = header.split(" ")[1]
     try{
-        const decoded = jwt.verify(token,"secret")
+        const decoded = jwt.verify(token,"SECRET_KEY")
         req.user = decoded
         next()
     }catch(err){
+        console.log(err)
         return res.status(401).json({message:"Unauthorized"})
 }}
 

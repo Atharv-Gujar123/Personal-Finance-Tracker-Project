@@ -9,6 +9,7 @@ export const Card = () => {
   const handleFilter = (data) => {
     setFilter(data)
   }
+  console.log(transactions)
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/delete/${id}`);

@@ -17,12 +17,17 @@ export const Add = () => {
       date: Date,
     };
     try {
+      const token = localStorage.getItem('token')
+      if(!token){
+        return
+      }
       const response = await axios.post(
         "http://localhost:5000/submit",
-        NewData,
+        NewData, {headers: {Authorization: `Bearer ${token}`}}
       );
       alert("New Transaction added successfully!")
       navigate("/Transactions")
+      window.location.reload()
     } catch (error) {
       console.log(error);
     }

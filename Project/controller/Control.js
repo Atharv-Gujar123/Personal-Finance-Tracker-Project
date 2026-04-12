@@ -34,6 +34,8 @@ export const home = async (req, res) => {
     //   selectFilter : req.query.filter,
     //   selectSort : req.query.sort,
     // });
+    console.log("data")
+    console.log(result)
    res.json({result:result});
 };
 export const add = async (req, res) => {
@@ -117,6 +119,7 @@ export const register = async(req,res) => {
       message:"User registered"
     })
   } catch(err){
+    console.log("Registration error : ",err)
     return res.status(500).json({
       message:err
     })

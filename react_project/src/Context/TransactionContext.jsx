@@ -5,10 +5,15 @@ export const TransactionContext = createContext();
 export const TransactionProvider = ({ children }) => {
   const [transactions, setTransactions] = useState([]);
   useEffect(() => {
-    console.log()
+    const token = localStorage.getItem('token')
+    console.log(token)
+    if(!token){
+      return
+    }
     axios
-      .get("http://localhost:5000/dashboard")
+      .get("http://localhost:5000/dashboard", {headers : {Authorization: `Bearer ${token}`}})
       .then((res) => {
+        console.log(`res : ${res.data.result}`)
         setTransactions(res.data.result);
       })
       .catch((err) => console.log(err));
