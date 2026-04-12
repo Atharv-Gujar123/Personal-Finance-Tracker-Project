@@ -70,7 +70,7 @@ A
   }, {});
   return (
     <>
-      <h1 className="heading">Welcome to the Dashboard, {name} !</h1>
+      <h1 className="heading">Welcome {name} !</h1>
       <div className="dashboard-cards">
         <div className="card">
           <span className="label">Income</span>

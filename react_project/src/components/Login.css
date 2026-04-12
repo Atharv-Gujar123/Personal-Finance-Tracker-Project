@@ -1,3 +1,8 @@
+input:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 1000px transparent;
+    -webkit-text-fill-color: #eee;
+    transition: background-color 5000s ease-in-out 0s;
+}
 .login-page{
     height: 100vh;
     background-color: #0f172a;

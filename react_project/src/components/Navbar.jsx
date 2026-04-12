@@ -11,7 +11,7 @@ export const Navbar = () => {
             <li><Link to = "/dashboard" className='nav-link'>Dashboard</Link></li>
             <li><Link to = "/add" className = 'nav-link'>Add Transactions</Link></li>
             <li><Link to = "/Transactions" className='nav-link'>All Transactions</Link></li>
-            <li onClick={handleClick}><Link to = "/" className='nav-link'>Logout</Link></li>
+            <li onClick={handleClick} className='logout'><Link to = "/" id = "link">Logout</Link></li>
         </ul>
         </div>
     )
