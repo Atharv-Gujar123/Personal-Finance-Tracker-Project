@@ -8,11 +8,16 @@ import { Update } from './components/Update.jsx'
 import { TransactionProvider } from './Context/TransactionContext.jsx'
 import { Login } from './components/Login.jsx'
 import { Register } from './components/Register.jsx'
+import { NotFound } from './components/notFound.jsx'
+import { Protect } from './components/Protect.jsx'
 const AppLayout = () => {
   return(
     <>
-    <Navbar/>
+    <Protect>
+      <Navbar/>
     <Outlet/>
+    </Protect>
+    
     </>
   )
 }
@@ -39,7 +44,7 @@ function App() {
       <Route path = "/Transactions" element = {<Card/>}/>
       <Route path="/Update/:id" element = {<Update/>}/>
       </Route>
-      
+      <Route path='*' element = {<NotFound/>}></Route>
     </Routes>
     </TransactionProvider>
     </>
