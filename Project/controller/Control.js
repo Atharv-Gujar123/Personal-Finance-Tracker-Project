@@ -10,6 +10,7 @@ import {
 } from "../model/Models.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { ObjectId } from "mongodb";
 export const home = async (req, res) => {
   let query = {};
   let sort = { Date: 1 };
@@ -70,6 +71,7 @@ export const submit = async (req, res) => {
     Amount: Number(Amount),
     Category: category,
     Date: new Date(date),
+    userId : new ObjectId(req.user._id)
   };
   const add = await addUsers(transaction);
   return res.status(200).json({
@@ -141,7 +143,7 @@ export const login = async(req,res) => {
       })
     }
     const token = jwt.sign(
-      {id: user._id},
+      {_id: user._id},
       "SECRET_KEY",
       {expiresIn:"1d"}
     )
