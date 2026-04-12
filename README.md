@@ -20,7 +20,7 @@
 - Recharts
 - axios
 
-###B ackend
+### Backend
 - Node.js
 - Express.js
 - JWT Authentication
