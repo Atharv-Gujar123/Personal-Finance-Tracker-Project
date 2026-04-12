@@ -12,15 +12,17 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { ObjectId } from "mongodb";
 export const home = async (req, res) => {
-  let query = {};
+  const userId = new ObjectId(req.user._id)
+  let query = {userId: userId};
+  query.userId = userId;
   let sort = { Date: 1 };
   if (req.query.filter) {
     const [type, id] = req.query.filter.split("-");
-    query = { [type]: id };
+    query[type] = id ;
   }
   if (req.query.sort) {
     const [type, value] = req.query.sort.split(".");
-    sort = { [type]: value };
+    sort = { [type]: Number(value) };
   }
   const result = await getUsers(query, sort);
   const total = await Total(); 
@@ -147,7 +149,7 @@ export const login = async(req,res) => {
       "SECRET_KEY",
       {expiresIn:"1d"}
     )
-      res.json({token})
+      res.json({token, email:user.email})
   } catch(err){
     return res.status(500).json({
       message:err

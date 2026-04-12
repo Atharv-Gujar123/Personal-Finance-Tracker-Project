@@ -4,6 +4,7 @@ import { BarGraph } from "./BarGraph";
 import { PieDiagram } from "./PieChart";
 import "./Dashboard.css";
 export const Dashboard = () => {
+  const email = localStorage.getItem('email')
   const currentMonth = new Date().toISOString().slice(0, 7);
   const [month, setMonth] = useState(currentMonth);
   const { transactions } = useContext(TransactionContext);
@@ -69,7 +70,7 @@ A
   }, {});
   return (
     <>
-      <h1 className="heading">Welcome to the Dashboard!</h1>
+      <h1 className="heading">Welcome to the Dashboard! {email}</h1>
       <div className="dashboard-cards">
         <div className="card">
           <span className="label">Income</span>
