@@ -3,7 +3,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 export const Login = () => {
   const navigate = useNavigate();
-
+  const [visible,setVisible] = useState({mode: 'visibility', type: 'password'})
+  const handleVisible = () => {
+    visible.mode === 'visibility'?setVisible({mode: 'visibility_off',type : 'text'}):setVisible({mode: 'visibility',type:'password'})
+  }
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -29,10 +32,10 @@ export const Login = () => {
 
       if (data.token) {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("name",data.name)
+        localStorage.setItem("name", data.name);
         alert("Login successful");
         navigate("/dashboard");
-        window.location.reload()
+        window.location.reload();
       } else {
         alert(data.message);
       }
@@ -59,18 +62,20 @@ export const Login = () => {
             </div>
             <div className="form-group">
               <label>Password</label>
+              <span className="password">
               <input
-                type="password"
+                type={visible.type}
                 name="password"
                 placeholder="Enter password"
                 onChange={handleChange}
               />
+              <span className="material-icons" onClick={handleVisible}>{visible.mode}</span>
+            </span>
             </div>
             <button type="submit" className="login-btn">
               Login
             </button>
           </form>
-          <p className="extra-text">Forget password</p>
           <Link to="/register">
             <p className="extra-text">Don't have an account?Sign up.</p>
           </Link>

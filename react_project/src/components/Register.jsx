@@ -2,6 +2,10 @@ import "./login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export const Register = () => {
+  const [visible,setVisible] = useState({mode: 'visibility', type: 'password'})
+  const handleVisible = () => {
+    visible.mode === 'visibility'?setVisible({mode: 'visibility_off',type : 'text'}):setVisible({mode: 'visibility',type:'password'})
+  }
   const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
@@ -63,12 +67,15 @@ export const Register = () => {
             </div>
             <div className="form-group">
               <label>Password</label>
+              <span className="password">
               <input
-                type="password"
+                type={visible.type}
                 name="password"
                 placeholder="Set password"
                 onChange={handleChange}
               />
+              <span className="material-icons" onClick={handleVisible}>{visible.mode}</span>
+              </span>
             </div>
             <button className="login-btn">Submit</button>
           </form>

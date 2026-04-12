@@ -10,6 +10,7 @@ import { Login } from './components/Login.jsx'
 import { Register } from './components/Register.jsx'
 import { NotFound } from './components/notFound.jsx'
 import { Protect } from './components/Protect.jsx'
+import { useState } from 'react'
 const AppLayout = () => {
   return(
     <>
@@ -30,13 +31,14 @@ const AuthLayout = () => {
 }
 
 function App() {
+  const [data,setData] = useState("")
   return (
     <>
     <TransactionProvider>
     <Routes>
       <Route element = {<AuthLayout/>}>
-      <Route path = "/register" element = {<Register/>}/>
-        <Route path = "/" element = {<Login/>}/>
+      <Route path = "/register" element = {<Register data = {data}/>}/>
+        <Route path = "/" element = {<Login setData = {setData}/>}/>
  </Route>
       <Route element = {<AppLayout/>}>
       <Route path = "/dashboard" element = {<Dashboard/>}/>
