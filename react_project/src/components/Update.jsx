@@ -21,7 +21,11 @@ export const Update = () => {
       date: Date,
     };
     try {
-      const response = await axios.put(`http://localhost:5000/edit`, NewData);
+      const token = localStorage.getItem('token')
+      if(!token){
+        return
+      }
+      const response = await axios.put(`http://localhost:5000/edit`, NewData,{headers: {Authorization: `Bearer ${token}`}});
       alert("Changes made successfully!!");
       navigate("/Transactions");
     } catch (err) {
