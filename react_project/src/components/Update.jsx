@@ -28,6 +28,7 @@ export const Update = () => {
       const response = await axios.put(`http://localhost:5000/edit`, NewData,{headers: {Authorization: `Bearer ${token}`}});
       alert("Changes made successfully!!");
       navigate("/Transactions");
+      window.location.reload()
     } catch (err) {
       console.log(err);
     }
