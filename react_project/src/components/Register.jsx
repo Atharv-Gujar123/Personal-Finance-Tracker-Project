@@ -44,6 +44,15 @@ export const Register = () => {
           <p className="login-subtitle">Sign up to get started</p>
           <form className="login-form" onSubmit={handleSubmit}>
             <div className="form-group">
+              <label>Name</label>
+              <input
+                type="name"
+                name="name"
+                placeholder="Enter name"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
               <label>Email</label>
               <input
                 type="email"

@@ -29,9 +29,10 @@ export const Login = () => {
 
       if (data.token) {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("email",data.email)
+        localStorage.setItem("name",data.name)
         alert("Login successful");
         navigate("/dashboard");
+        window.location.reload()
       } else {
         alert(data.message);
       }

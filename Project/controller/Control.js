@@ -109,7 +109,7 @@ export const Edit = async (req, res) => {
   }
 };
 export const register = async(req,res) => {
-  const {email, password} = req.body
+  const {name,email, password} = req.body
   try{
     const existing = await findByEmail(email)
     if(existing){
@@ -118,7 +118,7 @@ export const register = async(req,res) => {
       })
     }
     const hashed = await bcrypt.hash(password,10)
-    const result = await createUser({email,password:hashed})
+    const result = await createUser({name,email,password:hashed})
     return res.status(201).json({
       message:"User registered"
     })
@@ -149,7 +149,7 @@ export const login = async(req,res) => {
       "SECRET_KEY",
       {expiresIn:"1d"}
     )
-      res.json({token, email:user.email})
+      res.json({token, name:user.name})
   } catch(err){
     return res.status(500).json({
       message:err
