@@ -3,12 +3,14 @@ body{
     margin: 0;
 }
 .nav{
+    height: 60px;
     background-color: #1e293b;
     display: flex;
     align-items: center;
-    padding: 0 1vw;
     width: 100%;
-    margin: 0;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 .Navbar{
     list-style: none;
@@ -21,7 +23,7 @@ body{
     
 }
 .logout{
-    margin-left: 60%;
+    margin-left: auto;
 }
 .logout #link{
     text-decoration: none;
@@ -47,8 +49,36 @@ body{
 .nav-link:hover{
     color: #ffffff;
 }
-@media(max-width < 600){
-    .nav{
-        width: 100%;
+#hamburger{
+    display: none;
+    font-size: 26px;
+    cursor: pointer;
+}
+@media(max-width : 768px){
+    #hamburger {
+        display: block;
+    }
+    .Navbar {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 60%;
+        background: #1e293ba5;
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        align-items: flex-start;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: none;
+        border-left: none;
+        border-radius: 15px;
+        padding:  4rem 1rem 1rem; ;
+        gap: 1rem;
+        display: none;
+    }
+    .Navbar.active{
+        display: flex;
+    }
+    .logout {
+        margin-left: 0;
     }
 }

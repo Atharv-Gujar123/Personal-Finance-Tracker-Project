@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./Add.css";
 export const Add = () => {
   const navigate = useNavigate()
@@ -25,9 +26,9 @@ export const Add = () => {
         "http://localhost:5000/submit",
         NewData, {headers: {Authorization: `Bearer ${token}`}}
       );
-      alert("New Transaction added successfully!")
-      navigate("/Transactions")
-      window.location.reload()
+      toast.success("New Transaction added successfully!")
+      setTimeout(() => { navigate("/Transactions")
+      window.location.reload()},1000)
     } catch (error) {
       console.log(error);
     }

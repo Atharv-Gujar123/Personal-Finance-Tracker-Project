@@ -1,6 +1,7 @@
 import "./login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export const Register = () => {
   const [visible,setVisible] = useState({mode: 'visibility', type: 'password'})
   const handleVisible = () => {
@@ -29,8 +30,9 @@ export const Register = () => {
       });
       const data = await res.json();
       if (res.status === 201) {
-        alert("Registration successful");
-        navigate("/"); 
+        toast.success("Registration successful");
+        setTimeout(() => {navigate("/"); },1000)
+        
       } else {
         console.log(data)
         alert(data.message);

@@ -1,13 +1,17 @@
+import { toast } from 'react-toastify';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+export const Navbar = () => {
+    const [open,setOpen] = useState(false)
 const handleClick = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('name')
 }
-export const Navbar = () => {
     return(
         <div className="nav">
-        <ul className='Navbar'>
+            <span className="material-icons" id = "hamburger" onClick={() => {setOpen(!open)}}>menu</span>
+        <ul className= {`Navbar ${open ? 'active' : ""}`}>
             <li><Link to = "/dashboard" className='nav-link'>Dashboard</Link></li>
             <li><Link to = "/add" className = 'nav-link'>Add Transactions</Link></li>
             <li><Link to = "/Transactions" className='nav-link'>All Transactions</Link></li>

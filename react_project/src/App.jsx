@@ -11,7 +11,10 @@ import { Register } from './components/Register.jsx'
 import { NotFound } from './components/notFound.jsx'
 import { Protect } from './components/Protect.jsx'
 import { useState } from 'react'
+import {ToastContainer} from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css"
 const AppLayout = () => {
+
   return(
     <>
     <Protect>
@@ -48,6 +51,7 @@ function App() {
       </Route>
       <Route path='*' element = {<NotFound/>}></Route>
     </Routes>
+     <ToastContainer autoClose = {1000}/>
     </TransactionProvider>
     </>
   )

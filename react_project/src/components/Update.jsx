@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Add.css";
+import { toast } from "react-toastify";
 export const Update = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,9 +27,9 @@ export const Update = () => {
         return
       }
       const response = await axios.put(`http://localhost:5000/edit`, NewData,{headers: {Authorization: `Bearer ${token}`}});
-      alert("Changes made successfully!!");
-      navigate("/Transactions");
-      window.location.reload()
+      toast.success("Changes made successfully!!");
+      setTimeout(() => {navigate("/Transactions");
+      window.location.reload()},1000)
     } catch (err) {
       console.log(err);
     }

@@ -1,12 +1,18 @@
 import "./login.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 export const Login = () => {
   const navigate = useNavigate();
-  const [visible,setVisible] = useState({mode: 'visibility', type: 'password'})
+  const [visible, setVisible] = useState({
+    mode: "visibility",
+    type: "password",
+  });
   const handleVisible = () => {
-    visible.mode === 'visibility'?setVisible({mode: 'visibility_off',type : 'text'}):setVisible({mode: 'visibility',type:'password'})
-  }
+    visible.mode === "visibility"
+      ? setVisible({ mode: "visibility_off", type: "text" })
+      : setVisible({ mode: "visibility", type: "password" });
+  };
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -29,19 +35,23 @@ export const Login = () => {
       });
 
       const data = await res.json();
-
+      if (!res.ok) {
+        toast.error(data.message || "Login failed");
+        return;
+      }
       if (data.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("name", data.name);
-        alert("Login successful");
-        navigate("/dashboard");
-        window.location.reload();
+        toast.success("Login successful");
+        setTimeout(() => {navigate("/dashboard");
+        window.location.reload();},1000)
+        
       } else {
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (err) {
       console.log(err);
-      alert("Server error");
+      toast.error("Server error");
     }
   };
   return (
@@ -63,14 +73,16 @@ export const Login = () => {
             <div className="form-group">
               <label>Password</label>
               <span className="password">
-              <input
-                type={visible.type}
-                name="password"
-                placeholder="Enter password"
-                onChange={handleChange}
-              />
-              <span className="material-icons" onClick={handleVisible}>{visible.mode}</span>
-            </span>
+                <input
+                  type={visible.type}
+                  name="password"
+                  placeholder="Enter password"
+                  onChange={handleChange}
+                />
+                <span className="material-icons" onClick={handleVisible}>
+                  {visible.mode}
+                </span>
+              </span>
             </div>
             <button type="submit" className="login-btn">
               Login
