@@ -8,6 +8,7 @@ import { Update } from './components/Update.jsx'
 import { TransactionProvider } from './Context/TransactionContext.jsx'
 import { Login } from './components/Login.jsx'
 import { Register } from './components/Register.jsx'
+import { Forgot } from './components/Forgot.jsx'
 import { NotFound } from './components/notFound.jsx'
 import { Protect } from './components/Protect.jsx'
 import { useState } from 'react'
@@ -40,6 +41,7 @@ function App() {
     <TransactionProvider>
     <Routes>
       <Route element = {<AuthLayout/>}>
+      <Route path = "/forgot" element = {<Forgot/>}/>
       <Route path = "/register" element = {<Register data = {data}/>}/>
         <Route path = "/" element = {<Login setData = {setData}/>}/>
  </Route>

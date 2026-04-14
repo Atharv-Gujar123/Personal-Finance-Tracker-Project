@@ -5,10 +5,12 @@ import {
   findByEmail,
   getById,
   getUsers,
+  modifyUser,
   Total,
   updateById,
 } from "../model/Models.js";
 import bcrypt from "bcrypt";
+import e from "cors";
 import jwt from "jsonwebtoken";
 import { ObjectId } from "mongodb";
 export const home = async (req, res) => {
@@ -153,6 +155,23 @@ export const login = async(req,res) => {
   } catch(err){
     return res.status(500).json({
       message:err
+    })
+  }
+}
+export const forgot = async(req,res) => {
+  const {email,password} = req.body
+  try{
+    const hashedPassword = await bcrypt.hash(password,10)
+    const user = await modifyUser(email,hashedPassword)
+    const print = await findByEmail(email)
+    console.log(print)
+    res.status(200).json({
+      message: 'success'
+    })
+  }catch(err){
+    console.log(err)
+    res.status(400).json({
+      message: 'error'
     })
   }
 }

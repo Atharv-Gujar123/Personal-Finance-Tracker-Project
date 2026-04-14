@@ -35,11 +35,13 @@ export const Total = async() => {
 }
 export const findByEmail = async(email) => {
         const db = await dbConnection()
-
     return await db.collection('users').findOne({email})
 }
 export const createUser = async(user) => {
         const db = await dbConnection()
-
     return await db.collection('users').insertOne(user)
+}
+export const modifyUser = async(email,password) => {
+    const db = await dbConnection()
+    return await db.collection('users').updateOne({email: email},{$set: {password: password}})
 }

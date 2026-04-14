@@ -1,5 +1,5 @@
 import exp from 'express'
-import { add, Delete, Edit, home, submit, update,register,login } from './controller/Control.js'
+import { add, Delete, Edit, home, submit, update,register,login, forgot } from './controller/Control.js'
 import { MongoClient } from 'mongodb'
 import cors from 'cors'
 import jwt from 'jsonwebtoken'
@@ -32,6 +32,7 @@ export const dbConnection = async() => {
     const db = client.db("Data")
     return db
 }
+app.post("/forgot",forgot)
 app.post("/register", register)
 app.post("/login", login)
 app.get("/dashboard",auth,home)

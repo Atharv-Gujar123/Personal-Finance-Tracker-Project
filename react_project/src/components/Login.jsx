@@ -88,6 +88,9 @@ export const Login = () => {
               Login
             </button>
           </form>
+          <Link to="/forgot">
+          <p className="extra-text">Forgot password</p>
+          </Link>
           <Link to="/register">
             <p className="extra-text">Don't have an account?Sign up.</p>
           </Link>
