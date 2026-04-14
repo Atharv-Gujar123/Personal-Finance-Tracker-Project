@@ -10,7 +10,7 @@
 - Categorize Transactions
 - Monthly expense overview
 - Visual charts for spending analysis
-- Secure and private data handling.
+- Secure and private data handling
 
 ## Tech Stack
 
