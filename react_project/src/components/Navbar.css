@@ -25,19 +25,24 @@ body{
 .logout{
     display: flex;
     align-items: center;
-    gap: 5%;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 500;
     margin-left: auto;
-    border: 2px solid #ef4444;
-    padding: 0.5%;
-    border-radius: 10px;
+    padding: 6px 10px;
+    border-radius: 6px;
 }
 .logout:hover{
-    background-color: #fa030386;
+    color: #f87171;
+    background-color: rgba(239,68,68,0.1);
 }
 .logout .material-icons{
-    font-size: 18px;
-    font-weight: 600;
     color: #ef4444;
+    font-size: 18px;
+    transition: 0.2s;
+}
+.logout:hover .material-icons{
+    transform: translateX(4px);
 }
 .logout #link{
     text-decoration: none;
