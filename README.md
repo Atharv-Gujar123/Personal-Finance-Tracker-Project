@@ -33,4 +33,13 @@
 ## Screenshots
 
 ### Authentication Page
+ ![Auth](./Screenshots/Auth.png)
 
+### Dashboard Page
+![Dashboard](./Screenshots/Dashboard.png)
+
+### Add Transaction Page
+![Add_Transaction](./Screenshots/Add_Transactions.png)
+
+### All Transactions Page
+![All_Transaction](./Screenshots/All_Transactions.png)
