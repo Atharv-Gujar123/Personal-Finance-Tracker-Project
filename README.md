@@ -5,8 +5,9 @@
 ---
 
 ## Features
-
+- User Authentication
 - Track Income & Expenses
+- Transaction Management
 - Categorize Transactions
 - Monthly expense overview
 - Visual charts for spending analysis
@@ -28,3 +29,8 @@
 
 ### Database
 - MongoDB
+
+## Screenshots
+
+### Authentication Page
+
