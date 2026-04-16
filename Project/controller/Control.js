@@ -39,8 +39,6 @@ export const home = async (req, res) => {
     //   selectFilter : req.query.filter,
     //   selectSort : req.query.sort,
     // });
-    console.log("data")
-    console.log(result)
    res.json({result:result});
 };
 export const add = async (req, res) => {
@@ -136,12 +134,14 @@ export const login = async(req,res) => {
   try{
     const user = await findByEmail(email)
     if(!user){
+      console.log("failed")
       return res.status(400).json({
         message:"Invalid credentials"
       })
     }
     const match = await bcrypt.compare(password,user.password)
     if(!match){
+      console.log("wrong password")
       return res.status(400).json({
         message:"Invalid password"
       })
@@ -153,6 +153,7 @@ export const login = async(req,res) => {
     )
       res.json({token, name:user.name})
   } catch(err){
+    console.log("error")
     return res.status(500).json({
       message:err
     })

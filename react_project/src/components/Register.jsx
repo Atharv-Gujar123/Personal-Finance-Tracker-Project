@@ -2,6 +2,7 @@ import "./login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
 export const Register = () => {
   const [visible,setVisible] = useState({mode: 'visibility', type: 'password'})
   const handleVisible = () => {
@@ -21,25 +22,19 @@ export const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
+      const res = await axios.post("http://localhost:5000/register", form);
+      const data = await res.data;
       if (res.status === 201) {
         toast.success("Registration successful");
         setTimeout(() => {navigate("/"); },1000)
         
       } else {
         console.log(data)
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (err) {
       console.log(err);
-      alert("Server error");
+      toast.error("Server error");
     }
   };
   return (
@@ -56,6 +51,7 @@ export const Register = () => {
                 name="name"
                 placeholder="Enter name"
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -65,6 +61,7 @@ export const Register = () => {
                 name="email"
                 placeholder="Enter email"
                 onChange={handleChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -75,6 +72,7 @@ export const Register = () => {
                 name="password"
                 placeholder="Set password"
                 onChange={handleChange}
+                required
               />
               <span className="material-icons" onClick={handleVisible}>{visible.mode}</span>
               </span>
