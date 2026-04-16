@@ -1,3 +1,4 @@
+import axios from "axios";
 import "./login.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -26,19 +27,12 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        toast.error(data.message || "Login failed");
-        return;
-      }
+      const res = await axios.post("http://localhost:5000/login", form);
+      const data = res.data;
+      // if (!res.ok) {
+      //   toast.error(data.message || "Login failed");
+      //   return;
+      // }
       if (data.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("name", data.name);
