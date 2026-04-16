@@ -1,11 +1,13 @@
 import "./Login.css";
 import axios from "axios";
-import { use, useState } from "react";
+import { Link } from "react-router-dom";
+import {useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 export const Forgot = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const [visible, setVisible] = useState({
     mode: "visibility",
@@ -18,6 +20,10 @@ export const Forgot = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(password !== confirmPassword){
+      toast.error("Passwords do not match");
+      return;
+    }
     try {
       const res = await axios.post("http://localhost:5000/forgot", {
         email,
@@ -67,10 +73,28 @@ export const Forgot = () => {
                 </span>
               </span>
             </div>
+            <div className="form-group">
+              <label>Confirm New Password</label>
+              <span className="password">
+                <input
+                  type={visible.type}
+                  name="confirm_password"
+                  placeholder="Confirm new password"
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                  }}
+                  required
+                />
+                <span className="material-icons" onClick={handleVisible}>
+                  {visible.mode}
+                </span>
+              </span>
+            </div>
             <button className="login-btn" type="submit">
               Enter
             </button>
           </form>
+          <Link to="/"><p className="extra-text">Back to Login</p></Link>
         </div>
       </div>
     </>

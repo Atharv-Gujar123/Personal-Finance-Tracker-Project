@@ -29,10 +29,6 @@ export const Login = () => {
     try {
       const res = await axios.post("http://localhost:5000/login", form);
       const data = res.data;
-      // if (!res.ok) {
-      //   toast.error(data.message || "Login failed");
-      //   return;
-      // }
       if (data.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("name", data.name);
@@ -45,7 +41,7 @@ export const Login = () => {
       }
     } catch (err) {
       console.log(err);
-      toast.error("Server error");
+      toast.error(err.message);
     }
   };
   return (
