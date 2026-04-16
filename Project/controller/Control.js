@@ -3,6 +3,7 @@ import {
   createUser,
   DeleteById,
   findByEmail,
+  findByToken,
   getById,
   getUsers,
   modifyUser,
@@ -10,36 +11,36 @@ import {
   updateById,
 } from "../model/Models.js";
 import bcrypt from "bcrypt";
-import e from "cors";
+import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import { ObjectId } from "mongodb";
 export const home = async (req, res) => {
-  const userId = new ObjectId(req.user._id)
-  let query = {userId: userId};
+  const userId = new ObjectId(req.user._id);
+  let query = { userId: userId };
   query.userId = userId;
   let sort = { Date: 1 };
   if (req.query.filter) {
     const [type, id] = req.query.filter.split("-");
-    query[type] = id ;
+    query[type] = id;
   }
   if (req.query.sort) {
     const [type, value] = req.query.sort.split(".");
     sort = { [type]: Number(value) };
   }
   const result = await getUsers(query, sort);
-  const total = await Total(); 
+  const total = await Total();
   const date = result.map((item) => {
     return item.Date.toISOString().split("T")[0];
   });
-    // res.render("Home", {
-    //   data: result,
-    //   date: date,
-    //   income: 100,
-    //   expense: 300,
-    //   selectFilter : req.query.filter,
-    //   selectSort : req.query.sort,
-    // });
-   res.json({result:result});
+  // res.render("Home", {
+  //   data: result,
+  //   date: date,
+  //   income: 100,
+  //   expense: 300,
+  //   selectFilter : req.query.filter,
+  //   selectSort : req.query.sort,
+  // });
+  res.json({ result: result });
 };
 export const add = async (req, res) => {
   res.render("Register");
@@ -66,26 +67,26 @@ export const Delete = async (req, res) => {
   }
 };
 export const submit = async (req, res) => {
-  try{
-  const { type, Amount, category, date } = req.body;
-  const transaction = {
-    Type: type,
-    Amount: Number(Amount),
-    Category: category,
-    Date: new Date(date),
-    userId : new ObjectId(req.user._id)
-  };
-  const add = await addUsers(transaction);
-  return res.status(200).json({
-    status:true,
-    message: "success"
-  })
-} catch(err){
-  return res.status(400).json({
-    status:false,
-    message:err
-  })
-}
+  try {
+    const { type, Amount, category, date } = req.body;
+    const transaction = {
+      Type: type,
+      Amount: Number(Amount),
+      Category: category,
+      Date: new Date(date),
+      userId: new ObjectId(req.user._id),
+    };
+    const add = await addUsers(transaction);
+    return res.status(200).json({
+      status: true,
+      message: "success",
+    });
+  } catch (err) {
+    return res.status(400).json({
+      status: false,
+      message: err,
+    });
+  }
 };
 export const Edit = async (req, res) => {
   try {
@@ -108,71 +109,90 @@ export const Edit = async (req, res) => {
     });
   }
 };
-export const register = async(req,res) => {
-  const {name,email, password} = req.body
-  try{
-    const existing = await findByEmail(email)
-    if(existing){
+export const register = async (req, res) => {
+  const { name, email, password } = req.body;
+  try {
+    const existing = await findByEmail(email);
+    if (existing) {
       return res.json({
-        message:"User already exists"
-      })
+        message: "User already exists",
+      });
     }
-    const hashed = await bcrypt.hash(password,10)
-    const result = await createUser({name,email,password:hashed})
+    const hashed = await bcrypt.hash(password, 10);
+    const result = await createUser({ name, email, password: hashed });
     return res.status(201).json({
-      message:"User registered"
-    })
-  } catch(err){
-    console.log("Registration error : ",err)
+      message: "User registered",
+    });
+  } catch (err) {
+    console.log("Registration error : ", err);
     return res.status(500).json({
-      message:err
-    })
+      message: err,
+    });
   }
-}
-export const login = async(req,res) => {
-  const {email, password} = req.body
-  try{
-    const user = await findByEmail(email)
-    if(!user){
-      console.log("failed")
+};
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await findByEmail(email);
+    if (!user) {
+      console.log("failed");
       return res.status(400).json({
-        message:"Invalid credentials"
-      })
+        message: "Invalid credentials",
+      });
     }
-    const match = await bcrypt.compare(password,user.password)
-    if(!match){
-      console.log("wrong password")
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
       return res.status(400).json({
-        message:"Invalid password"
-      })
+        message: "Invalid password",
+      });
     }
-    const token = jwt.sign(
-      {_id: user._id},
-      "SECRET_KEY",
-      {expiresIn:"1d"}
-    )
-      res.json({token, name:user.name})
-  } catch(err){
-    console.log("error")
+    const token = jwt.sign({ _id: user._id }, "SECRET_KEY", {
+      expiresIn: "1d",
+    });
+    res.json({ token, name: user.name });
+  } catch (err) {
+    console.log("error");
     return res.status(500).json({
-      message:err
-    })
+      message: err,
+    });
   }
-}
-export const forgot = async(req,res) => {
-  const {email,password} = req.body
+};
+export const forgot = async (req, res) => {
+  const {email} = req.body;
   try{
-    const hashedPassword = await bcrypt.hash(password,10)
-    const user = await modifyUser(email,hashedPassword)
-    const print = await findByEmail(email)
-    console.log(print)
+    console.log(email)
     res.status(200).json({
-      message: 'success'
+      message : "Email sent"
     })
-  }catch(err){
+  } catch(err){
     console.log(err)
-    res.status(400).json({
-      message: 'error'
+    return res.status(500).json({
+      message : err
+    })
+  }
+};
+
+export const reset = async (req,res) => {
+  const { token, newPassword } = req.body;
+  try{
+    const user = await findByToken(token)
+    if(!user || user.resetTokenExpiry < Date.now()){
+      return res.status(400).json({
+        message : "Invalid or expired token"
+      })
+    }
+    const hashed = await bcrypt.hash(newPassword,10)
+    user.password = hashed
+    user.resetToken = undefined
+    user.resetTokenExpiry = undefined
+    await user.save()
+    res.status(200).json({
+      message : "Password reset successful"
+    })
+  } catch(err){
+    console.log(err)
+    res.status(500).json({
+      message : err
     })
   }
 }
