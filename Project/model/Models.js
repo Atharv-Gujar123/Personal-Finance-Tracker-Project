@@ -41,13 +41,13 @@ export const createUser = async(user) => {
         const db = await dbConnection()
     return await db.collection('users').insertOne(user)
 }
-export const modifyUser = async(email,password) => {
+export const modifyUser = async(userId,password) => {
     const db = await dbConnection()
-    return await db.collection('users').updateOne({email: email},{$set: {password: password}})
+    return await db.collection('users').updateOne({_id: userId},{$set: {password: password},$unset: {resetToken: "", resetTokenExpiry: ""}})
 }
-export const addUserData = async(email,token,expiry) => {
+export const addUserData = async(userId,token,expiry) => {
     const db = await dbConnection()
-    return await db.collection('user').updateOne({email},{$set: {
+    return await db.collection('users').updateOne({_id: userId},{$set: {
         resetToken: token,
         resetTokenExpiry: expiry
     }})

@@ -2,7 +2,11 @@ import { toast } from 'react-toastify';
 import './Login.css'
 import { useState } from 'react';
 import axios from 'axios';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 export const Reset = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+      const token = searchParams.get("token")
     const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
       const [visible, setVisible] = useState({
@@ -22,12 +26,13 @@ export const Reset = () => {
     }
     try{
       const res = await axios.post("http://localhost:5000/reset",{
-        password
+        password,token
       })
       const data = res.data;
       toast.success("password changed successfully!")
+      navigate("/");
     } catch(err){
-      toast.error(err)
+      toast.error(err.response?.data?.message || "Something went wrong!")
     }
       }
     return(
