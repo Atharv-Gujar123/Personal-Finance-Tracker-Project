@@ -45,6 +45,13 @@ export const modifyUser = async(email,password) => {
     const db = await dbConnection()
     return await db.collection('users').updateOne({email: email},{$set: {password: password}})
 }
+export const addUserData = async(email,token,expiry) => {
+    const db = await dbConnection()
+    return await db.collection('user').updateOne({email},{$set: {
+        resetToken: token,
+        resetTokenExpiry: expiry
+    }})
+}
 export const findByToken = async(token) => {
     const db = await dbConnection()
     return await db.collection('users').findOne({resetToken: token})

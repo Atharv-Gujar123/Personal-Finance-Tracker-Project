@@ -1,4 +1,5 @@
 import {
+  addUserData,
   addUsers,
   createUser,
   DeleteById,
@@ -137,7 +138,7 @@ export const login = async (req, res) => {
     if (!user) {
       console.log("failed");
       return res.status(400).json({
-        message: "Invalid credentials",
+        message: "Invalid username",
       });
     }
     const match = await bcrypt.compare(password, user.password);
@@ -160,9 +161,23 @@ export const login = async (req, res) => {
 export const forgot = async (req, res) => {
   const {email} = req.body;
   try{
-    console.log(email)
+    const user = await findByEmail(email)
+    if(!user){
+      return res.status(404).json({
+        message: 'User Not Found!'
+      })
+    }
+    const token = crypto.randomBytes(32).toString('hex')
+    const expiry =  Date.now() + 1000 * 60 * 15;
+    try{
+      await addUserData(email,token,expiry)
+      console.log('data added')
+    } catch(err){
+      console.log(err)
+    }
+    const resetLink = `http://localhost:3000/reset?token=${token}`
     res.status(200).json({
-      message : "Email sent"
+      message : "Reset Link Generated!"
     })
   } catch(err){
     console.log(err)
@@ -173,26 +188,17 @@ export const forgot = async (req, res) => {
 };
 
 export const reset = async (req,res) => {
-  const { token, newPassword } = req.body;
-  try{
-    const user = await findByToken(token)
-    if(!user || user.resetTokenExpiry < Date.now()){
-      return res.status(400).json({
-        message : "Invalid or expired token"
-      })
-    }
-    const hashed = await bcrypt.hash(newPassword,10)
-    user.password = hashed
-    user.resetToken = undefined
-    user.resetTokenExpiry = undefined
-    await user.save()
+ const {password} = req.body
+ try{
+    console.log(password)
     res.status(200).json({
-      message : "Password reset successful"
-    })
-  } catch(err){
-    console.log(err)
-    res.status(500).json({
-      message : err
-    })
-  }
+    message: 'success'
+
+  })
+ }catch(err){
+  console.log(err)
+  res.status(500).json({
+    message: err
+  })
+ }
 }

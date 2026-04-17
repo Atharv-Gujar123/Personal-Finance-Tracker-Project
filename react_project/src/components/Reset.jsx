@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
 import './Login.css'
 import { useState } from 'react';
+import axios from 'axios';
 export const Reset = () => {
     const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -13,13 +14,21 @@ export const Reset = () => {
           ? setVisible({ mode: "visibility_off", type: "text" })
           : setVisible({ mode: "visibility", type: "password" });
       };
-      const handleSubmit = (e) => {
+      const handleSubmit = async(e) => {
         e.preventDefault();
         if(password !== confirmPassword){
       toast.error("Passwords do not match");
       return;
     }
-    toast.success("Password Changed Successfully!!");
+    try{
+      const res = await axios.post("http://localhost:5000/reset",{
+        password
+      })
+      const data = res.data;
+      toast.success("password changed successfully!")
+    } catch(err){
+      toast.error(err)
+    }
       }
     return(
         <div className="login-page">
