@@ -170,7 +170,9 @@ export const forgot = async (req, res) => {
     const token = crypto.randomBytes(32).toString('hex')
     const expiry =  Date.now() + 1000 * 60 * 15;
     try{
+      console.log(user)
       await addUserData(user._id,token,expiry)
+      console.log(token)
     } catch(err){
       console.log(err)
     }
@@ -190,6 +192,7 @@ export const reset = async (req,res) => {
  const {password,token} = req.body
  try{
     const user = await findByToken(token)
+    console.log(user)
     if(!user || user.resetTokenExpiry < Date.now()){
       console.log("invalid token")
         return res.status(400).json({
@@ -198,7 +201,9 @@ export const reset = async (req,res) => {
     }
     const hashedPassword = await bcrypt.hash(password,10)
     try{
-    await modifyUser(user._id,hashedPassword)}
+    await modifyUser(user._id,hashedPassword)
+    console.log("reset:", token)
+  }
     catch(err){
       console.log(err)
     }
