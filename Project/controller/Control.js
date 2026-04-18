@@ -159,62 +159,58 @@ export const login = async (req, res) => {
   }
 };
 export const forgot = async (req, res) => {
-  const {email} = req.body;
-  try{
-    const user = await findByEmail(email)
-    if(!user){
+  const { email } = req.body;
+  try {
+    const user = await findByEmail(email);
+    if (!user) {
       return res.status(404).json({
-        message: 'User Not Found!'
-      })
+        message: "User Not Found!",
+      });
     }
-    const token = crypto.randomBytes(32).toString('hex')
-    const expiry =  Date.now() + 1000 * 60 * 15;
-    try{
-      console.log(user)
-      await addUserData(user._id,token,expiry)
-      console.log(token)
-    } catch(err){
-      console.log(err)
+    const token = crypto.randomBytes(32).toString("hex");
+    const expiry = Date.now() + 1000 * 60 * 15;
+    try {
+      await addUserData(user._id, token, expiry);
+    } catch (err) {
+      console.log(err);
     }
-    const resetLink = `http://localhost:5173/forgot/reset?token=${token}`
+    const resetLink = `http://localhost:5173/forgot/reset?token=${token}`;
     res.status(200).json({
-      message : "Reset Link Generated!",
-      resetLink
-    })
-  } catch(err){
-    console.log(err)
+      message: "Reset Link Generated!",
+      resetLink,
+    });
+  } catch (err) {
+    console.log(err);
     return res.status(500).json({
-      message : err
-    })
+      message: err,
+    });
   }
 };
 
-export const reset = async (req,res) => {
- const {password,token} = req.body
- try{
-    const user = await findByToken(token)
-    console.log(user)
-    if(!user || user.resetTokenExpiry < Date.now()){
-      console.log("invalid token")
-        return res.status(400).json({
-            message : "Invalid or Expired Token!"
-        })
+export const reset = async (req, res) => {
+  const { password, token } = req.body;
+  try {
+    const user = await findByToken(token);
+    if (!user || user.resetTokenExpiry < Date.now()) {
+      console.log("invalid token");
+      return res.status(400).json({
+        message: "Invalid or Expired Token!",
+      });
     }
-    const hashedPassword = await bcrypt.hash(password,10)
-    try{
-    await modifyUser(user._id,hashedPassword)
-    console.log("reset:", token)
-  }
-    catch(err){
-      console.log(err)
+    const hashedPassword = await bcrypt.hash(password, 10);
+    try {
+      await modifyUser(user._id, hashedPassword);
+      console.log("reset:", token);
+    } catch (err) {
+      console.log(err);
     }
     res.status(200).json({
-        message : "Password Reset Successful!"
-    })  
- }catch(err){
-  console.log(err)
-  res.status(500).json({
-    message: err
-  })
- }
-}
+      message: "Password Reset Successful!",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: err,
+    });
+  }
+};

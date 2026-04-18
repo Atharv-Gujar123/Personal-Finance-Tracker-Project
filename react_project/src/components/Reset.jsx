@@ -28,8 +28,6 @@ export const Reset = () => {
       const res = await axios.post("http://localhost:5000/reset",{
         password,token
       })
-            console.log('Token:', token);
-
       const data = res.data;
       toast.success("password changed successfully!")
       navigate("/");
