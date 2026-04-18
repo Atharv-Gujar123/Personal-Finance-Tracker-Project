@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 export const Reset = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+     const [searchParams] = useSearchParams();
       const token = searchParams.get("token")
     const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -28,6 +28,8 @@ export const Reset = () => {
       const res = await axios.post("http://localhost:5000/reset",{
         password,token
       })
+            console.log('Token:', token);
+
       const data = res.data;
       toast.success("password changed successfully!")
       navigate("/");

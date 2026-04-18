@@ -15,7 +15,7 @@ export const Forgot = () => {
         email,
       });
       const data = res.data
-      navigate("/forgot/reset");
+      window.location.href = data.resetLink;
     } catch (err) {
       console.log(err);
       toast.error("User not found!!");

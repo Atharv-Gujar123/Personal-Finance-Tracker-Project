@@ -176,9 +176,10 @@ export const forgot = async (req, res) => {
     } catch(err){
       console.log(err)
     }
-    const resetLink = `http://localhost:3000/reset?token=${token}`
+    const resetLink = `http://localhost:5173/forgot/reset?token=${token}`
     res.status(200).json({
-      message : "Reset Link Generated!"
+      message : "Reset Link Generated!",
+      resetLink
     })
   } catch(err){
     console.log(err)
