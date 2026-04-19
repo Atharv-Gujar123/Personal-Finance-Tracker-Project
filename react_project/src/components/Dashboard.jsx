@@ -43,7 +43,7 @@ export const Dashboard = () => {
   for (let i = 0; i < sortedData.length; i += 12) {
     chunkedData.push(sortedData.slice(i, i + 12));
   }
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(chunkedData.length);
   const currentData = chunkedData[page] || [];
   const getYearRange = (data) => {
   if (!data.length) return "";
