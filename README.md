@@ -1,17 +1,18 @@
 # Personal Finance Tracker
 
-> A simple and powerful web app to track your monthly and yearly expenses and savings in one place.
+> A full-stack web application to track income, expenses, and analyze spending patterns with interactive visualizations.
 
 ---
 
 ## Features
-- User Authentication
+- JWT based User Authentication
 - Track Income & Expenses
 - Transaction Management
 - Categorize Transactions
 - Monthly expense overview
 - Visual charts for spending analysis
 - Secure and private data handling
+- Token based password reset
 
 ## Tech Stack
 
