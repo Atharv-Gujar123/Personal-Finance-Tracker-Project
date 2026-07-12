@@ -1,6 +1,6 @@
 # Personal Finance Tracker
 
-> A full-stack web application to track income, expenses, and analyze spending patterns with interactive visualizations.
+> A full-stack web application to track income, expenses, and analyze spending patterns with interactive graphs and charts for visualization.
 
 ---
 
